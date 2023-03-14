@@ -435,21 +435,20 @@ void ajustar(arvore *raiz, arvore elemento){
 */
 
 void rotacao_simples_direita(arvore *raiz, arvore pivo){
-    arvore p, u, t1;
-    p = pivo;
-    u = p->esq;
+    arvore u, t1;
+    u = pivo->esq;
     t1 = u->dir;
     
     int posicao_pivo_esq = eh_filho_esquerdo(pivo);
     
-    p->esq = t1;
+    pivo->esq = t1;
     
     if(t1 != NULL)
         t1->pai = pivo;
     
     u->dir = pivo;
-    u->pai = p->pai;
-    p->pai = u;
+    u->pai = pivo->pai;
+    pivo->pai = u;
     
     if(eh_raiz(u))
         *raiz = u;
