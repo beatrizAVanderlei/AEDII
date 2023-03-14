@@ -275,10 +275,9 @@ void reajustar(arvore *raiz, arvore elemento){
     {
         elemento->pai->cor = DUPLO_PRETO;
         irmao(elemento)->cor = VERMELHO;
-        
+        retira_duplo_preto(raiz, elemento);
         reajustar(raiz, elemento->pai);
-        
-        elemento = NULL;
+
         return;
     }
     
@@ -299,10 +298,10 @@ void reajustar(arvore *raiz, arvore elemento){
     
     if(eh_filho_esquerdo(elemento)){
         if(cor(irmao(elemento)) == PRETO && cor(irmao(elemento)->esq) == VERMELHO && cor(irmao(elemento)->dir) == PRETO){
-            rotacao_simples_direita(raiz, irmao(elemento));
-            
             irmao(elemento)->cor = PRETO;
             irmao(elemento)->dir->cor = VERMELHO;
+		
+	    rotacao_simples_direita(raiz, irmao(elemento));
             
             reajustar(raiz, elemento);
             return;
@@ -311,10 +310,10 @@ void reajustar(arvore *raiz, arvore elemento){
     
     if(eh_filho_direito(elemento)){
         if(cor(irmao(elemento)) == PRETO && cor(irmao(elemento)->dir) == VERMELHO && cor(irmao(elemento)->esq) == PRETO){
-            rotacao_simples_esquerda(raiz, irmao(elemento));
-            
-            irmao(elemento)->cor = PRETO;
+	    irmao(elemento)->cor = PRETO;
             irmao(elemento)->esq->cor = VERMELHO;
+		
+            rotacao_simples_esquerda(raiz, irmao(elemento));
             
             reajustar(raiz, elemento);
             return;
